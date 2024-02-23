@@ -1,5 +1,6 @@
 package com.example.whereott
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         const val MOVIE_RATING = "extra_movie_rating"
         const val MOVIE_RELEASE_DATE = "extra_movie_release_date"
         const val MOVIE_OVERVIEW = "extra_movie_overview"
+        private const val USER_EDIT_REQUEST_CODE = 1001
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -126,20 +128,25 @@ class MainActivity : AppCompatActivity() {
                             binding.loginLayout.visibility = View.GONE
                             binding.mypageLayout.visibility = View.VISIBLE
                             idView.text = userNick
-                            val userId = sharedPreferences.getString("userId", "")
+                            val userId = sharedPreferences.getString("userId", "") ?: ""
                             GlobalScope.launch(Dispatchers.IO) {
+
                                 if (!userId.isNullOrEmpty()) {
                                     val profileUriString = userRepository.getProfileImageUri(userId)
                                     if (!profileUriString.isNullOrEmpty()) {
                                         val profileUri = Uri.parse(profileUriString)
-                                        imageViewProfile.setImageURI(profileUri)
-                                        imageViewProfile.visibility = ImageView.VISIBLE
+                                        imageViewProfile.post {
+                                            imageViewProfile.setImageURI(profileUri)
+                                            imageViewProfile.visibility = ImageView.VISIBLE
+                                        }
                                     } else {
-                                        imageViewProfile.visibility = ImageView.GONE
+                                        // 프로필 이미지 URI가 없는 경우 이미지 뷰를 숨깁니다.
+                                        imageViewProfile.post {
+                                            imageViewProfile.visibility = ImageView.GONE
+                                        }
                                     }
-                                    editTextId.text.clear()
-                                    editTextPassword.text.clear()
                                 } else {
+                                    // 사용자 ID가 없는 경우 처리
                                     Log.e("HomeActivity", "User ID is null or empty")
                                 }
                             }
@@ -161,7 +168,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.editProfileButton.setOnClickListener {
-            startActivity(Intent(this@MainActivity, UsereditActivity::class.java))
+            startActivityForResult(Intent(this@MainActivity, UsereditActivity::class.java), USER_EDIT_REQUEST_CODE)
         }
 
         binding.btnRegister.setOnClickListener {
@@ -189,6 +196,18 @@ class MainActivity : AppCompatActivity() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
-}
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == USER_EDIT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            // 프로필 이미지 변경 후 처리
+            val profileImageUriString = data?.getStringExtra("profileImageUri")
+            if (!profileImageUriString.isNullOrEmpty()) {
+                val profileImageUri = Uri.parse(profileImageUriString)
+                imageViewProfile.setImageURI(profileImageUri)
+                imageViewProfile.visibility = ImageView.VISIBLE
+            }
+        }
+    }
+}
 

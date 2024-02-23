@@ -1,3 +1,4 @@
+// UsereditActivity.kt
 package com.example.whereott.ui.user
 
 import android.annotation.SuppressLint
@@ -19,8 +20,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.example.whereott.MainActivity
 import com.example.whereott.R
 import com.example.whereott.Repository.UserRepository
-import com.example.whereott.databinding.ActivityJoinBinding
-import com.example.whereott.databinding.ActivityUsereditBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -124,6 +123,7 @@ class UsereditActivity : AppCompatActivity() {
                     sharedPreferences.edit().putString("username", newNickname).apply()
                     Log.d("수정된 닉네임2", newNickname)
                     userRepository.updateNickname(userId, newNickname)
+
                 } else if (currentProfileUri != null) {
                     Log.d("수정된 닉네임3", newNickname)
                     // 프로필 사진만 변경된 경우
@@ -131,16 +131,17 @@ class UsereditActivity : AppCompatActivity() {
                         val savedImageUriString = it.toString()
                         sharedPreferences.edit().putString("profileUri", savedImageUriString).apply()
                         userRepository.updateProfileUri(userId, savedImageUriString)
+
                     }
                 }
                 // 수정이 완료되면 로그인 상태 저장
                 saveLoginState()
-            }
 
-            // 수정이 완료되면 홈 화면으로 이동
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+                // 수정이 완료되면 홈 화면으로 이동
+                val intent = Intent(this@UsereditActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         }
     }
 
