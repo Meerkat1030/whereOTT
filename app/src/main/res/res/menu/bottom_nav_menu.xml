@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    <item-->
+<!--        android:id="@+id/navigation_home"-->
+<!--        android:title="@string/title_home"-->
+<!--        />-->
+
+    <item
+        android:id="@+id/navigation_movie"
+        android:title="@string/title_movie"
+        />
+
+    <item
+        android:id="@+id/navigation_tv"
+        android:title="@string/title_dashboard" />
+
+    <item
+        android:id="@+id/navigation_actor"
+        android:title="@string/title_notifications" />
+
+</menu>

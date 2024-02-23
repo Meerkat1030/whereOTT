@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- gradient_actionbar.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#DF67AF"
+    android:endColor="#7867DF"
+    android:type="linear"
+    android:angle="90"/>
+</shape>
