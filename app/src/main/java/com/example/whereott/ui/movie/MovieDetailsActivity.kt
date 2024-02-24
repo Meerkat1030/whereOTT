@@ -5,15 +5,21 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.whereott.MainActivity.Companion.MOVIE_BACKDROP
+import com.example.whereott.MainActivity.Companion.MOVIE_ID
 import com.example.whereott.MainActivity.Companion.MOVIE_OVERVIEW
 import com.example.whereott.MainActivity.Companion.MOVIE_POSTER
 import com.example.whereott.MainActivity.Companion.MOVIE_RATING
 import com.example.whereott.MainActivity.Companion.MOVIE_RELEASE_DATE
 import com.example.whereott.MainActivity.Companion.MOVIE_TITLE
 import com.example.whereott.R
+import com.example.whereott.common.CastAdapter
+import com.example.whereott.common.MoviesRepository
+import com.example.whereott.common.ProviderAdapter
 
 class MovieDetailsActivity : AppCompatActivity() {
 
@@ -23,6 +29,11 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var rating: RatingBar
     private lateinit var releaseDate: TextView
     private lateinit var overview: TextView
+
+    private lateinit var castAdapter: CastAdapter
+    private lateinit var providerAdapter: ProviderAdapter
+    private var castPage = 1
+    private var movieId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +46,34 @@ class MovieDetailsActivity : AppCompatActivity() {
         releaseDate = findViewById(R.id.movie_release_date)
         overview = findViewById(R.id.movie_overview)
 
+        // 출연진 정보를 위한 RecyclerView 초기화
+        val castRecyclerView: RecyclerView = findViewById(R.id.cast_recycler_view)
+        val castLayoutManager = LinearLayoutManager(this).apply {
+            orientation = LinearLayoutManager.HORIZONTAL
+        }
+        castRecyclerView.layoutManager = castLayoutManager
+        castAdapter = CastAdapter(mutableListOf())
+        castRecyclerView.adapter = castAdapter
+
+        // Provider 정보를 위한 RecyclerView 초기화
+        val providersRecyclerView: RecyclerView = findViewById(R.id.provider_recycler_view)
+        val providersLayoutManager = LinearLayoutManager(this).apply {
+            orientation = LinearLayoutManager.HORIZONTAL
+        }
+        providersRecyclerView.layoutManager = providersLayoutManager
+        providerAdapter = ProviderAdapter(mutableListOf())
+        providersRecyclerView.adapter = providerAdapter
+
         val extras = intent.extras
 
         if (extras != null) {
+            movieId = extras.getLong(MOVIE_ID)
+            // 출연진 정보 가져오기
+            getMovieCast(movieId)
+
             populateDetails(extras)
+
+            getMovieProviders(movieId)
         } else {
             finish()
         }
@@ -64,5 +99,35 @@ class MovieDetailsActivity : AppCompatActivity() {
         rating.rating = extras.getFloat(MOVIE_RATING, 0f) / 2
         releaseDate.text = extras.getString(MOVIE_RELEASE_DATE, "")
         overview.text = extras.getString(MOVIE_OVERVIEW, "")
+    }
+
+    private fun getMovieCast(movieId: Long) {
+//        val movieId = intent.getLongExtra(MOVIE_ID, -1) // 영화의 ID를 가져옵니다.
+
+        if (movieId != -1L) {
+            val moviesRepository = MoviesRepository()
+            moviesRepository.getMovieCast(movieId,
+                onSuccess = { cast ->
+                    castAdapter.appendCast(cast)
+                },
+                onError = {
+                    // 오류 처리
+                }
+            )
+        }
+    }
+
+    private fun getMovieProviders(movieId: Long) {
+        if (movieId != -1L) {
+            val moviesRepository = MoviesRepository()
+            moviesRepository.getMovieProviders(movieId,
+                onSuccess = { providers ->
+                    providerAdapter.appendProviders(providers)
+                },
+                onError = {
+                    // 오류 처리
+                }
+            )
+        }
     }
 }

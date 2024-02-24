@@ -92,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="아이디"
-                    android:textSize="30dp"
+                    android:textSize="25dp"
                     android:textColor="@color/white"
                     android:layout_marginTop="50dp"
 
@@ -108,7 +108,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="비밀번호"
-                    android:textSize="30dp"
+                    android:textSize="25dp"
                     android:textColor="@color/white"
                     android:layout_marginTop="10dp"
 
@@ -159,11 +159,13 @@
 <!--                    />-->
                 <Button
                     android:id="@+id/btnRegister"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:text="회원가입"
-                    android:textColor="@color/white"
                     android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/corner_button"
+                     android:backgroundTint="#CF4747"
                     />
             </LinearLayout>
         </LinearLayout>

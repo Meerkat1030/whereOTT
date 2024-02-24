@@ -64,19 +64,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아이디"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:textColor="@color/white"
                 tools:ignore="MissingConstraints" />
 
             <Button
                 android:id="@+id/btnCheckId_Reg"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="중복 확인"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@color/white"
+                android:background="#CF4747"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView2"
                 />
 
 
@@ -88,15 +88,16 @@
             android:background="@color/white"
             android:gravity="center"
             />
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="비밀번호"
-            android:textSize="30dp"
-            android:textColor="@color/white"
             android:layout_marginTop="10dp"
-            />
+            android:text="비밀번호"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
+
         <EditText
             android:id="@+id/editTextPass_Reg"
             android:inputType="textPassword"
@@ -110,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="비밀번호 확인"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:textColor="@color/white"
             android:layout_marginTop="10dp"
             />
@@ -131,7 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"
                 tools:ignore="MissingConstraints" />
@@ -139,12 +140,12 @@
             <Button
                 android:id="@+id/btnCheckNick_Reg"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="중복 확인"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@color/white"
+                android:background="#CF4747"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView5"
                 />
 
 

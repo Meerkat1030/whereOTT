@@ -354,4 +354,11 @@ class JoinActivity : AppCompatActivity() {
         return Uri.fromFile(filePath)
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        // 뒤로가기 버튼을 눌렀을 때 현재 화면을 종료하고 이전 화면으로 돌아감
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
+    }
+
 }

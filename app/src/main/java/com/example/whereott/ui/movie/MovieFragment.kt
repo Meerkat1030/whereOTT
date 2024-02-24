@@ -51,7 +51,7 @@ class MovieFragment : Fragment() {
 
     // 인기 영화 목록을 가져오는 메서드
     private fun getPopularMovies() {
-        MoviesRepository.getPopularMovies(
+        MoviesRepository().getPopularMovies(
             popularMoviesPage,
             ::onPopularMoviesFetched,
             ::onError
@@ -101,6 +101,7 @@ class MovieFragment : Fragment() {
     // 영화 상세보기 인텐트 추가
     private fun showMovieDetails(movie: Movie) {
         val intent = Intent(activity, MovieDetailsActivity::class.java)
+        intent.putExtra(MainActivity.MOVIE_ID, movie.id)
         intent.putExtra(MainActivity.MOVIE_BACKDROP, movie.backdrop_path)
         intent.putExtra(MainActivity.MOVIE_POSTER, movie.poster_path)
         intent.putExtra(MainActivity.MOVIE_TITLE, movie.title)

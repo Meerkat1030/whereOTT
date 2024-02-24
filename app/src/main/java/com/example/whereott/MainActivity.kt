@@ -185,6 +185,7 @@ class MainActivity : AppCompatActivity() {
         const val MOVIE_RATING = "extra_movie_rating"
         const val MOVIE_RELEASE_DATE = "extra_movie_release_date"
         const val MOVIE_OVERVIEW = "extra_movie_overview"
+        const val MOVIE_ID = "extra_movie_id"
     }
     private fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
