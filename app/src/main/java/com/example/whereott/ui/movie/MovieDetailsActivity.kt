@@ -20,8 +20,12 @@ import com.example.whereott.R
 import com.example.whereott.common.CastAdapter
 import com.example.whereott.common.MoviesRepository
 import com.example.whereott.common.ProviderAdapter
+import com.example.whereott.databinding.ActivityMainBinding
+import com.example.whereott.databinding.ActivityMovieDetailsBinding
 
 class MovieDetailsActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMovieDetailsBinding
 
     private lateinit var backdrop: ImageView
     private lateinit var poster: ImageView
@@ -37,7 +41,10 @@ class MovieDetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_details)
+        binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setSupportActionBar(binding.toolbar)
 
         backdrop = findViewById(R.id.movie_backdrop)
         poster = findViewById(R.id.movie_poster)
@@ -77,6 +84,8 @@ class MovieDetailsActivity : AppCompatActivity() {
         } else {
             finish()
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
 

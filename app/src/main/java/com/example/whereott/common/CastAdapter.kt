@@ -24,7 +24,7 @@ class CastAdapter(val castList: MutableList<Cast>) : RecyclerView.Adapter<CastAd
 
             Glide.with(itemView)
                 .load("https://image.tmdb.org/t/p/w185${cast.profilePath}")
-                .transform(CenterCrop(), RoundedCorners(16))
+                .transform(CenterCrop())
                 .into(profileImageView)
         }
     }
