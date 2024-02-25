@@ -129,7 +129,7 @@
         <!-- OTT 프로바이더 RecyclerView -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/provider_recycler"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/stream_title"
             >
@@ -215,7 +215,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cast_recycler_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             android:layout_marginTop="10dp"
             android:clipToPadding="false"
             android:paddingStart="20dp"

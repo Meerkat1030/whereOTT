@@ -20,7 +20,6 @@ import com.example.whereott.R
 import com.example.whereott.common.CastAdapter
 import com.example.whereott.common.MoviesRepository
 import com.example.whereott.common.ProviderAdapter
-import com.example.whereott.databinding.ActivityMainBinding
 import com.example.whereott.databinding.ActivityMovieDetailsBinding
 
 class MovieDetailsActivity : AppCompatActivity() {

@@ -13,13 +13,13 @@ class ProviderAdapter(private val providers: MutableList<Provider>) : RecyclerVi
 
     inner class ProviderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-//        private val providerNameTextView: TextView = itemView.findViewById(R.id.provider_type)
+        private val providerNameTextView: TextView = itemView.findViewById(R.id.provider_type)
         private val logoImageView: ImageView = itemView.findViewById(R.id.provider_logo)
 //        private val nameTextView: TextView = itemView.findViewById(R.id.provider_name)
 
         fun bind(provider: Provider) {
 
-//            providerNameTextView.text = provider.type
+            providerNameTextView.text = provider.type
 
             // 프로바이더 로고 설정
             Glide.with(itemView)

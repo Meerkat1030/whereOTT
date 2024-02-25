@@ -22,13 +22,6 @@ interface Api {
         @Query("language") language : String = "ko-KR,en-US"
     ): Call<GetTVResponse>
 
-    @GET("discover/movie")
-    fun getDiscoverMovies(
-        @Query("api_key") apiKey: String = "beb95ad63fd33a8568136afbb01979a1",
-        @Query("page") page : Int,
-        @Query("language") language : String = "ko,en-US"
-    ): Call<GetMoviesResponse>
-
     @GET("movie/{movie_id}/credits")
     fun getMovieCredits(
         @Path("movie_id") movieId: Long,
