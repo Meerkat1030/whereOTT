@@ -120,7 +120,7 @@ class UsereditActivity : AppCompatActivity() {
                         val savedImageUri = saveImageToInternalStorage(this@UsereditActivity, bitmap)
                         savedImageUri?.let {
                             val savedImageUriString = savedImageUri.toString()
-                            sharedPreferences.edit().putString("profileUri", savedImageUriString).apply()
+                            sharedPreferences.edit().putString("profileImageUri", savedImageUriString).apply()
                             sharedPreferences.edit().putString("username", newNickname).apply()
                             userRepository.updateNicknameAndProfileUri(userId, newNickname, savedImageUriString)
                         }
@@ -135,7 +135,7 @@ class UsereditActivity : AppCompatActivity() {
                         // 프로필 사진만 변경된 경우
                         newProfileUri?.let {
                             val savedImageUriString = it.toString()
-                            sharedPreferences.edit().putString("profileUri", savedImageUriString).apply()
+                            sharedPreferences.edit().putString("profileImageUri", savedImageUriString).apply()
                             userRepository.updateProfileUri(userId, savedImageUriString)
 
                         }
