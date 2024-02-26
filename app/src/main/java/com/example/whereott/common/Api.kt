@@ -43,4 +43,20 @@ interface Api {
         @Query("page") page : Int,
         @Query("language") language : String = "ko-KR,en-US"
     ): Call<GetPersonResponse>
+
+    @GET("search/movie")
+    fun searchMovies(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String,
+        @Query("page") page: Int,
+        @Query("language") language: String = "ko-KR,en-US"
+    ): Call<GetMoviesResponse>
+
+    @GET("search/tv")
+    fun searchTV(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String,
+        @Query("page") page: Int,
+        @Query("language") language: String = "ko-KR,en-US"
+    ): Call<GetTVResponse>
 }
