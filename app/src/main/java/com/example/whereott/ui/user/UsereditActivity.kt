@@ -103,62 +103,48 @@ class UsereditActivity : AppCompatActivity() {
         }
 
         buttonSave.setOnClickListener {
-            if (checkNick) {
-                val newNickname = editTextNickname.text.toString()
-                val currentNickname = sharedPreferences.getString("username", "")
-                val currentProfileUri = sharedPreferences.getString("profileUri", "")
+            val newNickname = editTextNickname.text.toString()
+            val currentNickname = sharedPreferences.getString("username", "")
+            val currentProfileUri = sharedPreferences.getString("profileUri", "")
 
-                // 변경된 닉네임과 프로필 사진의 URI 가져오기
-                val newProfileUri = getImageUriFromImageView(imageViewProfile)
+            // 변경된 닉네임과 프로필 사진의 URI 가져오기
+            val newProfileUri = getImageUriFromImageView(imageViewProfile)
 
-                // 수정 내역에 따라 데이터베이스 업데이트 수행
-                GlobalScope.launch(Dispatchers.IO) {
-                    if (newNickname != currentNickname && currentProfileUri != null) {
-                        Log.d("수정된 닉네임1", newNickname)
-                        // 닉네임과 프로필 사진 모두 변경된 경우
-                        val bitmap = (imageViewProfile.drawable as BitmapDrawable).bitmap
-                        val savedImageUri = saveImageToInternalStorage(this@UsereditActivity, bitmap)
-                        savedImageUri?.let {
-                            val savedImageUriString = savedImageUri.toString()
-                            sharedPreferences.edit().putString("profileImageUri", savedImageUriString).apply()
-                            sharedPreferences.edit().putString("username", newNickname).apply()
-                            userRepository.updateNicknameAndProfileUri(userId, newNickname, savedImageUriString)
-                        }
-                    } else if (newNickname != currentNickname) {
-                        // 닉네임만 변경된 경우
+            // 수정 내역에 따라 데이터베이스 업데이트 수행
+            GlobalScope.launch(Dispatchers.IO) {
+                if (newNickname != currentNickname && currentProfileUri != null) {
+                    Log.d("수정된 닉네임1", newNickname)
+                    // 닉네임과 프로필 사진 모두 변경된 경우
+                    val bitmap = (imageViewProfile.drawable as BitmapDrawable).bitmap
+                    val savedImageUri = saveImageToInternalStorage(this@UsereditActivity, bitmap)
+                    savedImageUri?.let {
+                        val savedImageUriString = savedImageUri.toString()
+                        sharedPreferences.edit().putString("profileImageUri", savedImageUriString).apply()
                         sharedPreferences.edit().putString("username", newNickname).apply()
-                        Log.d("수정된 닉네임2", newNickname)
-                        userRepository.updateNickname(userId, newNickname)
-
-                    } else if (currentProfileUri != null) {
-                        Log.d("수정된 닉네임3", newNickname)
-                        // 프로필 사진만 변경된 경우
-                        newProfileUri?.let {
-                            val savedImageUriString = it.toString()
-                            sharedPreferences.edit().putString("profileImageUri", savedImageUriString).apply()
-                            userRepository.updateProfileUri(userId, savedImageUriString)
-
-                        }
+                        userRepository.updateNicknameAndProfileUri(userId, newNickname, savedImageUriString)
                     }
-                    // 수정이 완료되면 로그인 상태 저장
-                    saveLoginState()
-                    sendLoginStateToMainActivity()
-
-                    // 수정이 완료되면 홈 화면으로 이동
-                    val intent = Intent(this@UsereditActivity, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                } else if (newNickname != currentNickname) {
+                    // 닉네임만 변경된 경우
+                    sharedPreferences.edit().putString("username", newNickname).apply()
+                    Log.d("수정된 닉네임2", newNickname)
+                    userRepository.updateNickname(userId, newNickname)
+                } else if (currentProfileUri != null && newProfileUri != null) {
+                    // 프로필 사진만 변경된 경우
+                    val savedImageUriString = newProfileUri.toString()
+                    sharedPreferences.edit().putString("profileImageUri", savedImageUriString).apply()
+                    userRepository.updateProfileUri(userId, savedImageUriString)
                 }
+                // 수정이 완료되면 로그인 상태 저장
+                saveLoginState()
+                sendLoginStateToMainActivity()
 
-            } else {
-                Toast.makeText(
-                    this@UsereditActivity,
-                    "닉네임 중복확인을 해주세요.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                // 수정이 완료되면 홈 화면으로 이동
+                val intent = Intent(this@UsereditActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
-
         }
+
 
         btnCheckNick.setOnClickListener {
             val newNick = editTextNickname.text.toString()
