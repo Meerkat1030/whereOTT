@@ -1,0 +1,57 @@
+<!-- item_cast.xml -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:minHeight="230dp"
+    android:orientation="horizontal"
+    android:layout_marginEnd="10dp"
+    app:cardCornerRadius="15dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 출연진 프로필 이미지 -->
+        <ImageView
+            android:id="@+id/cast_profile_image"
+            android:layout_width="120dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:background="@color/black"
+            />
+
+        <!-- 출연진 이름 -->
+        <TextView
+            android:id="@+id/cast_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingHorizontal="5dp"
+            android:text="배우이름"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            />
+
+        <!-- 출연진 역할 -->
+        <TextView
+            android:id="@+id/cast_character"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="배역이fdafdsafda름"
+            android:textSize="12sp"
+            android:paddingHorizontal="5dp"
+            android:paddingBottom="10dp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            />
+
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

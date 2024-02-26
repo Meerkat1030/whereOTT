@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -47,47 +48,67 @@
         android:layout_marginTop="10dp"
         >
 
-<!--        <TextView-->
-<!--            android:id="@+id/id_text"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="아이디"-->
-<!--            android:textSize="30dp"-->
-<!--            android:textColor="@color/white"-->
-<!--            />-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/id_text"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="아이디"-->
+        <!--            android:textSize="30dp"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            />-->
 
-<!--        <TextView-->
-<!--            android:id="@+id/id_view"-->
-<!--            android:layout_width="200dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:gravity="start|center_vertical"-->
-<!--            android:text="아이디 나타나는 곳"-->
-<!--            android:textSize="20dp"-->
-<!--            />-->
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="비밀번호"-->
-<!--            android:textSize="30dp"-->
-<!--            android:textColor="@color/white"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            />-->
-<!--        <EditText-->
-<!--            android:id="@+id/edit_password"-->
-<!--            android:inputType="textPassword"-->
-<!--            android:layout_width="200dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:background="@color/white"-->
-<!--            android:gravity="center"-->
-<!--            />-->
-        <TextView
+        <!--        <TextView-->
+        <!--            android:id="@+id/id_view"-->
+        <!--            android:layout_width="200dp"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:gravity="start|center_vertical"-->
+        <!--            android:text="아이디 나타나는 곳"-->
+        <!--            android:textSize="20dp"-->
+        <!--            />-->
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="비밀번호"-->
+        <!--            android:textSize="30dp"-->
+        <!--            android:textColor="@color/white"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            />-->
+        <!--        <EditText-->
+        <!--            android:id="@+id/edit_password"-->
+        <!--            android:inputType="textPassword"-->
+        <!--            android:layout_width="200dp"-->
+        <!--            android:layout_height="40dp"-->
+        <!--            android:background="@color/white"-->
+        <!--            android:gravity="center"-->
+        <!--            />-->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="닉네임"
-            android:textSize="30dp"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"
-            />
+            android:layout_marginTop="10dp">
+            <TextView
+                android:id="@+id/textViewNick"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textSize="25dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                tools:ignore="MissingConstraints" />
+
+            <Button
+                android:id="@+id/btnCheckNick_Edit"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="중복 확인"
+                android:textSize="15dp"
+                android:textColor="@color/white"
+                android:background="#CF4747"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:ignore="MissingConstraints" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <EditText
             android:id="@+id/editTextNickname"
             android:layout_width="200dp"

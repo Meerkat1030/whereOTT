@@ -18,13 +18,22 @@
         android:textColor="@color/white"
         android:gravity="center"
         />
-    <ImageView
-        android:id="@+id/imageViewProfile"
+
+    <androidx.cardview.widget.CardView
         android:layout_width="144dp"
         android:layout_height="144dp"
-        android:background="@drawable/circle"
-        android:layout_marginTop="20dp"
-        />
+        app:cardCornerRadius="75dp"
+        app:cardElevation="0dp">
+
+        <ImageView
+            android:id="@+id/imageViewProfile"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:src="@drawable/circle"
+            android:scaleType="centerCrop"
+            />
+
+    </androidx.cardview.widget.CardView>
 
 
     <Button
@@ -55,19 +64,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="아이디"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:textColor="@color/white"
                 tools:ignore="MissingConstraints" />
 
             <Button
                 android:id="@+id/btnCheckId_Reg"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="중복 확인"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@color/white"
+                android:background="#CF4747"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView2"
                 />
 
 
@@ -75,25 +84,24 @@
         <EditText
             android:id="@+id/editTextId_Reg"
             android:layout_width="200dp"
-            android:hint="@string/editId_hint"
             android:layout_height="40dp"
             android:background="@color/white"
             android:gravity="center"
             />
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="비밀번호"
-            android:textSize="30dp"
-            android:textColor="@color/white"
             android:layout_marginTop="10dp"
-            />
+            android:text="비밀번호"
+            android:textColor="@color/white"
+            android:textSize="25dp" />
+
         <EditText
             android:id="@+id/editTextPass_Reg"
             android:inputType="textPassword"
             android:layout_width="200dp"
-            android:hint="@string/editPass_hint"
             android:layout_height="40dp"
             android:background="@color/white"
             android:gravity="center"
@@ -103,14 +111,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="비밀번호 확인"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:textColor="@color/white"
             android:layout_marginTop="10dp"
             />
         <EditText
             android:id="@+id/editTextRePass_Reg"
             android:inputType="textPassword"
-            android:hint="@string/editPass_hint"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:background="@color/white"
@@ -125,7 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"
                 tools:ignore="MissingConstraints" />
@@ -133,20 +140,19 @@
             <Button
                 android:id="@+id/btnCheckNick_Reg"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:text="중복 확인"
-                android:textSize="20dp"
+                android:textSize="15dp"
                 android:textColor="@color/white"
+                android:background="#CF4747"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView5"
-                />
+                tools:ignore="MissingConstraints" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
             android:id="@+id/editTextNick_Reg"
-            android:hint="@string/editNick_hint"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:background="@color/white"

@@ -3,14 +3,11 @@
     <string name="title_home">홈</string>
     <string name="title_movie">영화</string>
     <string name="title_dashboard">TV</string>
-    <string name="title_notifications">배우</string>
+    <string name="title_person">배우</string>
 
     <string name="popular">인기순</string>
 
     <string name="drawer_opened">네비게이션 열림</string>
     <string name="drawer_closed">네비게이션 닫힘</string>
     <string name="title_tv">TV</string>
-    <string name="editId_hint"><font size="14">6~15자 영문/숫자 조합으로 입력</font></string>
-    <string name="editPass_hint"><font size="14">8~15자 영문/숫자 조합으로 입력</font></string>
-    <string name="editNick_hint"><font size="14">2~20자 영문/한글/숫자 조합으로 입력</font></string>
 </resources>
