@@ -7,7 +7,7 @@
     android:paddingBottom="100dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true"
-    tools:context=".ui.person.PersonDetailsActivity">
+    tools:context=".ui.movie.MovieDetailsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
 
 
         <TextView
-            android:id="@+id/person_detail_title"
+            android:id="@+id/movie_detail_title"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:text="상세보기"
@@ -39,8 +39,8 @@
             android:id="@+id/movie_backdrop"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:tint="#806F6F6F"
-            app:layout_constraintTop_toBottomOf="@+id/person_detail_title" />
+            android:background="#666666"
+            app:layout_constraintTop_toBottomOf="@+id/movie_detail_title" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/movie_poster_card"
@@ -55,11 +55,9 @@
             >
 
             <ImageView
-                android:id="@+id/person_img"
+                android:id="@+id/movie_poster"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/iu"
-                android:scaleType="centerCrop"
                 />
 
         </androidx.cardview.widget.CardView>
@@ -67,7 +65,7 @@
 
 
         <TextView
-            android:id="@+id/person_name"
+            android:id="@+id/movie_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -86,11 +84,20 @@
             android:id="@+id/movie_release_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#000000"
+            android:textColor="#FFFFFF"
             android:textSize="12sp"
-            android:text="1990-01-01"
-            app:layout_constraintStart_toStartOf="@+id/person_name"
-            app:layout_constraintTop_toBottomOf="@+id/person_name" />
+            app:layout_constraintStart_toStartOf="@+id/movie_title"
+            app:layout_constraintTop_toBottomOf="@+id/movie_title" />
+
+        <RatingBar
+            android:id="@+id/movie_rating"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:progressTint="@android:color/holo_orange_light"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/movie_release_date"
+            app:layout_constraintTop_toBottomOf="@+id/movie_release_date" />
 
         <androidx.constraintlayout.widget.Barrier
             android:id="@+id/movie_poster_title_barrier"
@@ -98,32 +105,6 @@
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="movie_backdrop" />
-
-        <!--        개요부분 -->
-        <TextView
-            android:id="@+id/biography_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="25dp"
-            android:layout_marginTop="20dp"
-            android:text="약력"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/movie_backdrop"
-            />
-        <TextView
-            android:id="@+id/person_biography"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="아이유 최고"
-            android:textSize="18dp"
-            android:textColor="@color/black"
-            android:paddingHorizontal="25dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/biography_title" />
 
         <TextView
             android:id="@+id/stream_title"
@@ -133,26 +114,113 @@
             android:paddingStart="25dp"
             android:text="출연작"
             android:textSize="20dp"
-            android:textStyle="bold"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/person_biography"
+            app:layout_constraintTop_toBottomOf="@+id/movie_backdrop"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line"
+            app:layout_constraintStart_toEndOf="@+id/stream_title"
+            app:layout_constraintBottom_toBottomOf="@+id/stream_title"
+            android:paddingBottom="5dp"
             />
 
         <!-- OTT 프로바이더 RecyclerView -->
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/provider_recycler_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/provider_recycler"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
+            app:layout_constraintTop_toBottomOf="@+id/stream_title"
+            >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/provider_recycler_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:layout_marginTop="10dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/provider_recycler_view1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:layout_marginTop="10dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toEndOf="@+id/provider_recycler_view"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/provider_recycler_view2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:layout_marginTop="10dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintStart_toEndOf="@+id/provider_recycler_view1"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <!--        개요부분 -->
+        <TextView
+            android:id="@+id/movie_overview_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="25dp"
+            android:layout_marginTop="40dp"
+            android:text="개요"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/provider_recycler"
+            />
+        <TextView
+            android:id="@+id/movie_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:paddingHorizontal="25dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/movie_overview_title" />
+
+        <!-- 배우 부분-->
+
+        <TextView
+            android:id="@+id/movie_actor_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="25dp"
+            android:layout_marginTop="40dp"
+            android:text="출연진"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/movie_overview"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cast_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="250dp"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintStart_toStartOf="@+id/stream_title"
-            app:layout_constraintTop_toBottomOf="@+id/stream_title"
-            />
-
+            app:layout_constraintTop_toBottomOf="@id/movie_actor_title"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

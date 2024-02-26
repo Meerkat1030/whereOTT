@@ -19,6 +19,7 @@ import com.example.whereott.common.Movie
 import com.example.whereott.common.Person
 import com.example.whereott.common.PersonRepository
 import com.example.whereott.common.TVRepository.getPopularTV
+import com.example.whereott.ui.movie.MovieDetailsActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -117,7 +118,10 @@ class PersonFragment : Fragment() {
 
     private fun showPersonDetails(person: Person) {
         val intent = Intent(activity, PersonDetailsActivity::class.java)
-        intent.putExtra(MainActivity.PERSON_BIRTHDAY, person.birthday)
+        intent.putExtra(MainActivity.MOVIE_ID, person.id)
+        intent.putExtra(MainActivity.MOVIE_POSTER, person.profilePath)
+        intent.putExtra(MainActivity.MOVIE_TITLE, person.name)
+        intent.putExtra(MainActivity.MOVIE_RELEASE_DATE, person.birthday)
         startActivity(intent)
     }
     // Retrofit 인터페이스 구현체 생성
