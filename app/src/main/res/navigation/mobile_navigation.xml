@@ -14,6 +14,10 @@
         android:id="@+id/navigation_tv"
         android:name="com.example.whereott.ui.tv.TVFragment"
         tools:layout="@layout/fragment_tv" />
+    <fragment
+        android:id="@+id/navigation_actor"
+        android:name="com.example.whereott.ui.person.PersonFragment"
+        tools:layout="@layout/fragment_person" />
 
 
 </navigation>

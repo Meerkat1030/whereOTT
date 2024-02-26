@@ -16,10 +16,12 @@ import com.example.whereott.MainActivity.Companion.MOVIE_POSTER
 import com.example.whereott.MainActivity.Companion.MOVIE_RATING
 import com.example.whereott.MainActivity.Companion.MOVIE_RELEASE_DATE
 import com.example.whereott.MainActivity.Companion.MOVIE_TITLE
+import com.example.whereott.MainActivity.Companion.TV_ID
 import com.example.whereott.R
 import com.example.whereott.common.CastAdapter
 import com.example.whereott.common.MoviesRepository
 import com.example.whereott.common.ProviderAdapter
+import com.example.whereott.common.TV
 import com.example.whereott.databinding.ActivityMovieDetailsBinding
 
 class MovieDetailsActivity : AppCompatActivity() {
@@ -37,6 +39,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var providerAdapter: ProviderAdapter
     private var castPage = 1
     private var movieId: Long = -1L
+    private var tvId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +77,9 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         if (extras != null) {
             movieId = extras.getLong(MOVIE_ID)
+
+            tvId = extras.getLong(TV_ID)
+
             // 출연진 정보 가져오기
             getMovieCast(movieId)
 

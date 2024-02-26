@@ -35,4 +35,12 @@ interface Api {
         @Query("api_key") apiKey: String = "beb95ad63fd33a8568136afbb01979a1",
         @Query("language") language : String = "ko,en-US"
     ): Call<GetMovieProvidersResponse>
+
+
+    @GET("person/popular")
+    fun getPopularPerson(
+        @Query("api_key") apiKey: String = "beb95ad63fd33a8568136afbb01979a1",
+        @Query("page") page : Int,
+        @Query("language") language : String = "ko-KR,en-US"
+    ): Call<GetPersonResponse>
 }

@@ -1,10 +1,10 @@
-package com.example.whereott.ui.actor
+package com.example.whereott.ui.person
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ActorViewModel : ViewModel() {
+class PersonViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is actor Fragment"
