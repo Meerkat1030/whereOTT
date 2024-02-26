@@ -11,6 +11,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.whereott.MainActivity
 import com.example.whereott.R
 import com.example.whereott.common.Api
 import com.example.whereott.common.GetPersonResponse
@@ -24,7 +25,6 @@ import retrofit2.Response
 
 class PersonFragment : Fragment() {
     lateinit var root : View
-
 
     private lateinit var popularPerson: RecyclerView
     private lateinit var popularPersonAdapter: PersonAdapter
@@ -117,7 +117,7 @@ class PersonFragment : Fragment() {
 
     private fun showPersonDetails(person: Person) {
         val intent = Intent(activity, PersonDetailsActivity::class.java)
-
+        intent.putExtra(MainActivity.PERSON_BIRTHDAY, person.birthday)
         startActivity(intent)
     }
     // Retrofit 인터페이스 구현체 생성

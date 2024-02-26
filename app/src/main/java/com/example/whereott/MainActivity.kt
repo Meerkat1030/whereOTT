@@ -209,6 +209,8 @@ class MainActivity : AppCompatActivity() {
         const val MOVIE_ID = "extra_movie_id"
 //        const val TV_ID = "extra_tv_id"
         const val TYPE = "extra_type"
+        const val PERSON_BIRTHDAY = "extra_person_birthday"
+
         private const val USER_EDIT_REQUEST_CODE = 1001
     }
     private fun hideKeyboard() {

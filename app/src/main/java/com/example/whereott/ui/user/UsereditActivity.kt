@@ -16,6 +16,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.whereott.MainActivity
 import com.example.whereott.R
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.regex.Pattern
 
 class UsereditActivity : AppCompatActivity() {
 
@@ -38,6 +40,8 @@ class UsereditActivity : AppCompatActivity() {
     private lateinit var userId: String // 사용자 ID
     private var currentProfileUri: Uri? = null // 현재 프로필 사진 URI
     private var newProfileUri: Uri? = null // 변경된 프로필 사진 URI
+    private var checkNick: Boolean = false
+    private lateinit var editTextNick: EditText
 
     private val getContent = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -57,6 +61,7 @@ class UsereditActivity : AppCompatActivity() {
         editTextNickname = findViewById(R.id.editTextNickname)
         imageViewProfile = findViewById<ImageView>(R.id.imageViewProfile)
         imageViewProfileBtn = findViewById<Button>(R.id.imageViewProfileBtn)
+        val btnCheckNick = findViewById<Button>(R.id.btnCheckNick_Edit)
 
         buttonSave = findViewById(R.id.buttonSave)
 
@@ -114,7 +119,7 @@ class UsereditActivity : AppCompatActivity() {
                     val savedImageUri = saveImageToInternalStorage(this@UsereditActivity, bitmap)
                     savedImageUri?.let {
                         val savedImageUriString = savedImageUri.toString()
-                        sharedPreferences.edit().putString("profileUri", savedImageUriString).apply()
+                        sharedPreferences.edit().putString("profileImageUri", savedImageUriString).apply()
                         sharedPreferences.edit().putString("username", newNickname).apply()
                         userRepository.updateNicknameAndProfileUri(userId, newNickname, savedImageUriString)
                     }
@@ -123,19 +128,15 @@ class UsereditActivity : AppCompatActivity() {
                     sharedPreferences.edit().putString("username", newNickname).apply()
                     Log.d("수정된 닉네임2", newNickname)
                     userRepository.updateNickname(userId, newNickname)
-
-                } else if (currentProfileUri != null) {
-                    Log.d("수정된 닉네임3", newNickname)
+                } else if (currentProfileUri != null && newProfileUri != null) {
                     // 프로필 사진만 변경된 경우
-                    newProfileUri?.let {
-                        val savedImageUriString = it.toString()
-                        sharedPreferences.edit().putString("profileUri", savedImageUriString).apply()
-                        userRepository.updateProfileUri(userId, savedImageUriString)
-
-                    }
+                    val savedImageUriString = newProfileUri.toString()
+                    sharedPreferences.edit().putString("profileImageUri", savedImageUriString).apply()
+                    userRepository.updateProfileUri(userId, savedImageUriString)
                 }
                 // 수정이 완료되면 로그인 상태 저장
                 saveLoginState()
+                sendLoginStateToMainActivity()
 
                 // 수정이 완료되면 홈 화면으로 이동
                 val intent = Intent(this@UsereditActivity, MainActivity::class.java)
@@ -143,6 +144,58 @@ class UsereditActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+
+        btnCheckNick.setOnClickListener {
+            val newNick = editTextNickname.text.toString()
+            val oldNick = sharedPreferences.getString("username", "")
+            val nickPattern = "^[ㄱ-ㅣ가-힣a-zA-Z0-9]{2,20}$"
+
+            if (newNick == "") {
+                Toast.makeText(this@UsereditActivity, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            } else {
+                if (Pattern.matches(nickPattern, newNick)) {
+                    GlobalScope.launch(Dispatchers.IO) {
+                        // 기존 닉네임과 동일한 경우 중복 검사 통과
+                        if (newNick == oldNick) {
+                            checkNick = true
+                            runOnUiThread {
+                                Toast.makeText(
+                                    this@UsereditActivity,
+                                    "사용 가능한 닉네임입니다.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        } else {
+                            // 중복 검사 진행
+                            val checkNick = userRepository.getUserByNick(newNick)
+                            if (checkNick == null) {
+                                this@UsereditActivity.checkNick = true
+                                runOnUiThread {
+                                    Toast.makeText(
+                                        this@UsereditActivity,
+                                        "사용 가능한 닉네임입니다.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            } else {
+                                runOnUiThread {
+                                    Toast.makeText(
+                                        this@UsereditActivity,
+                                        "이미 존재하는 닉네임입니다.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    Toast.makeText(this@UsereditActivity, "닉네임 형식이 옳지 않습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+
     }
 
     private fun openGallery() {
@@ -200,5 +253,11 @@ class UsereditActivity : AppCompatActivity() {
     private fun saveLoginState() {
         val sharedPreferences = getSharedPreferences("loginPrefs", Context.MODE_PRIVATE)
         sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
+    }
+    private fun sendLoginStateToMainActivity() {
+        val intent = Intent()
+        intent.putExtra("loginState", true)
+        setResult(Activity.RESULT_OK, intent)
+        finish() // UsereditActivity 종료
     }
 }

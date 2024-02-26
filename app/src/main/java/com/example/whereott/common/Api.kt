@@ -46,6 +46,7 @@ interface Api {
         @Query("language") language : String = "ko-KR,en-US"
     ): Call<GetPersonResponse>
 
+
     @GET("search/movie")
     fun searchMovies(
         @Query("api_key") apiKey: String,
