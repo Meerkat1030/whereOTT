@@ -126,6 +126,7 @@ class MovieFragment : Fragment() {
     // 영화 상세보기 인텐트 추가
     private fun showMovieDetails(movie: Movie) {
         val intent = Intent(activity, MovieDetailsActivity::class.java)
+        intent.putExtra(MainActivity.MOVIE_ID, movie.id)
         intent.putExtra(MainActivity.MOVIE_BACKDROP, movie.backdrop_path)
         intent.putExtra(MainActivity.MOVIE_POSTER, movie.poster_path)
         intent.putExtra(MainActivity.MOVIE_TITLE, movie.title)
