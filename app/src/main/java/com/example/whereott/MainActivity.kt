@@ -1,5 +1,6 @@
 package com.example.whereott
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -23,6 +24,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.whereott.Repository.UserRepository
 import com.example.whereott.databinding.ActivityMainBinding
 import com.example.whereott.ui.user.JoinActivity
+import com.example.whereott.ui.user.UsereditActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -54,6 +56,29 @@ class MainActivity : AppCompatActivity() {
 //        btnRegister = findViewById(R.id.btnRegister)
         imageViewProfile = findViewById(R.id.imageViewProfile)
         val idView: TextView = findViewById(R.id.id_view)
+
+        val isLoggedIn = sharedPreferences.getBoolean("isLoggedIn", false)
+
+        if (isLoggedIn) {
+            // 이미 로그인되어 있을 경우 마이페이지 레이아웃 표시
+            binding.loginLayout.visibility = View.GONE
+            binding.mypageLayout.visibility = View.VISIBLE
+
+            val userId = sharedPreferences.getString("userId", "")
+            if (!userId.isNullOrEmpty()) {
+                val userNick = sharedPreferences.getString("username", "")
+                idView.text = userNick
+
+                val profileUriString = sharedPreferences.getString("profileImageUri", "")
+                if (!profileUriString.isNullOrEmpty()) {
+                    val profileUri = Uri.parse(profileUriString)
+                    imageViewProfile.setImageURI(profileUri)
+                    imageViewProfile.visibility = ImageView.VISIBLE
+                } else {
+                    imageViewProfile.visibility = ImageView.GONE
+                }
+            }
+        }
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
@@ -87,18 +112,14 @@ class MainActivity : AppCompatActivity() {
             } else {
                 GlobalScope.launch(Dispatchers.IO) {
                     val checkUser = userRepository.getUserByIdAndPassword(user, pass)
-                    // id와 password 일치시
                     if (checkUser != null) {
-                        // 로그인 상태를 SharedPreferences에 저장
                         val userNick = userRepository.getUserNickname(user)
                         sharedPreferences.edit().putBoolean("isLoggedIn", true).apply()
                         sharedPreferences.edit().putString("username", userNick).apply()
                         sharedPreferences.edit().putString("userId", user).apply()
                         Log.d("전송하는 id", "$user")
 
-
                         val username = sharedPreferences.getString("username", "")
-                        // 프로필 사진을 데이터베이스에서 가져와서 URI로 저장
                         val profileImageUri = userRepository.getProfileImageUri(user)
                         sharedPreferences.edit().putString("profileImageUri", profileImageUri).apply()
 
@@ -108,8 +129,9 @@ class MainActivity : AppCompatActivity() {
                             binding.loginLayout.visibility = View.GONE
                             binding.mypageLayout.visibility = View.VISIBLE
                             idView.text = userNick
-                            val userId = sharedPreferences.getString("userId", "")
+                            val userId = sharedPreferences.getString("userId", "") ?: ""
                             GlobalScope.launch(Dispatchers.IO) {
+
                                 if (!userId.isNullOrEmpty()) {
                                     val profileUriString = userRepository.getProfileImageUri(userId)
                                     if (!profileUriString.isNullOrEmpty()) {
@@ -124,11 +146,6 @@ class MainActivity : AppCompatActivity() {
                                             imageViewProfile.visibility = ImageView.GONE
                                         }
                                     }
-
-
-                                    // Clear EditText fields after successful login
-                                    editTextId.text.clear()
-                                    editTextPassword.text.clear()
                                 } else {
                                     // 사용자 ID가 없는 경우 처리
                                     Log.e("HomeActivity", "User ID is null or empty")
@@ -151,6 +168,10 @@ class MainActivity : AppCompatActivity() {
             binding.mypageLayout.visibility = View.GONE
             editTextId.text.clear()
             editTextPassword.text.clear()
+        }
+
+        binding.editProfileButton.setOnClickListener {
+            startActivityForResult(Intent(this@MainActivity, UsereditActivity::class.java), USER_EDIT_REQUEST_CODE)
         }
 
 
@@ -188,9 +209,22 @@ class MainActivity : AppCompatActivity() {
         const val MOVIE_ID = "extra_movie_id"
 //        const val TV_ID = "extra_tv_id"
         const val TYPE = "extra_type"
+        private const val USER_EDIT_REQUEST_CODE = 1001
     }
     private fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == USER_EDIT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            // 프로필 이미지 변경 후 처리
+            val profileImageUriString = data?.getStringExtra("profileImageUri")
+            if (!profileImageUriString.isNullOrEmpty()) {
+                val profileImageUri = Uri.parse(profileImageUriString)
+                imageViewProfile.setImageURI(profileImageUri)
+                imageViewProfile.visibility = ImageView.VISIBLE
+            }
+        }
     }
 }
