@@ -113,30 +113,56 @@ class UsereditActivity : AppCompatActivity() {
             // 수정 내역에 따라 데이터베이스 업데이트 수행
             GlobalScope.launch(Dispatchers.IO) {
                 if (newNickname != currentNickname && currentProfileUri != null) {
-                    Log.d("수정된 닉네임1", newNickname)
                     // 닉네임과 프로필 사진 모두 변경된 경우
-                    val bitmap = (imageViewProfile.drawable as BitmapDrawable).bitmap
-                    val savedImageUri = saveImageToInternalStorage(this@UsereditActivity, bitmap)
-                    savedImageUri?.let {
-                        val savedImageUriString = savedImageUri.toString()
-                        sharedPreferences.edit().putString("profileImageUri", savedImageUriString).apply()
-                        sharedPreferences.edit().putString("username", newNickname).apply()
-                        userRepository.updateNicknameAndProfileUri(userId, newNickname, savedImageUriString)
+                    if (checkNick) {
+                        Log.d("수정된 닉네임1", newNickname)
+                        val bitmap = (imageViewProfile.drawable as BitmapDrawable).bitmap
+                        val savedImageUri = saveImageToInternalStorage(this@UsereditActivity, bitmap)
+                        savedImageUri?.let {
+                            val savedImageUriString = savedImageUri.toString()
+                            sharedPreferences.edit().putString("profileImageUri", savedImageUriString).apply()
+                            sharedPreferences.edit().putString("username", newNickname).apply()
+                            userRepository.updateNicknameAndProfileUri(userId, newNickname, savedImageUriString)
+                        }
+                    } else {
+                        runOnUiThread {
+                            Toast.makeText(
+                                this@UsereditActivity,
+                                "닉네임 중복확인을 해주세요.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            // 여기서 수정 페이지에 머무르게 함
+                        }
+                        return@launch  // 수정 페이지에 머무르도록 launch 블록을 종료
                     }
                 } else if (newNickname != currentNickname) {
                     // 닉네임만 변경된 경우
-                    sharedPreferences.edit().putString("username", newNickname).apply()
-                    Log.d("수정된 닉네임2", newNickname)
-                    userRepository.updateNickname(userId, newNickname)
-                } else if (currentProfileUri != null && newProfileUri != null) {
+                    if (checkNick) {
+                        sharedPreferences.edit().putString("username", newNickname).apply()
+                        Log.d("수정된 닉네임2", newNickname)
+                        userRepository.updateNickname(userId, newNickname)
+                    } else {
+                        runOnUiThread {
+                            Toast.makeText(
+                                this@UsereditActivity,
+                                "닉네임 중복확인을 해주세요.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            // 여기서 수정 페이지에 머무르게 함
+                        }
+                        return@launch  // 수정 페이지에 머무르도록 launch 블록을 종료
+                    }
+                } else if (newProfileUri != null) {
                     // 프로필 사진만 변경된 경우
                     val savedImageUriString = newProfileUri.toString()
                     sharedPreferences.edit().putString("profileImageUri", savedImageUriString).apply()
                     userRepository.updateProfileUri(userId, savedImageUriString)
                 }
+
                 // 수정이 완료되면 로그인 상태 저장
                 saveLoginState()
                 sendLoginStateToMainActivity()
+
 
                 // 수정이 완료되면 홈 화면으로 이동
                 val intent = Intent(this@UsereditActivity, MainActivity::class.java)
@@ -144,6 +170,7 @@ class UsereditActivity : AppCompatActivity() {
                 finish()
             }
         }
+
 
 
         btnCheckNick.setOnClickListener {
