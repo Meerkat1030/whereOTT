@@ -70,6 +70,8 @@ class MovieFragment : Fragment() {
 
                 // 입력된 텍스트가 없을 때는 '인기순' 텍스트를 moviePopular에 설정
                 if (newText.isNullOrEmpty()) {
+                    // 텍스트가 없으면 인기 영화 목록을 다시 로드하여 기존 리스트를 보여줍니다.
+                    reloadPopularMovies()
                     root.findViewById<TextView>(R.id.moviePopular).text = getString(R.string.popular)
                 } else {
                     // 입력된 텍스트가 있을 때는 '검색결과' 텍스트를 moviePopular에 설정
