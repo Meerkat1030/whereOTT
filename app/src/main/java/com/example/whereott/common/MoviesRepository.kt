@@ -47,8 +47,8 @@ class MoviesRepository {
             })
     }
 
-    fun getMovieCast(movieId: Long, onSuccess: (cast: List<Cast>) -> Unit, onError: () -> Unit) {
-        api.getMovieCredits(movieId = movieId)
+    fun getMovieCast(type:String, movieId: Long, onSuccess: (cast: List<Cast>) -> Unit, onError: () -> Unit) {
+        api.getMovieCredits(type, movieId = movieId)
             .enqueue(object : Callback<GetMovieCreditsResponse> {
                 override fun onResponse(
                     call: Call<GetMovieCreditsResponse>,
@@ -72,8 +72,8 @@ class MoviesRepository {
             })
     }
 
-    fun getMovieProviders(movieId: Long, onSuccess: (providers: List<Provider>) -> Unit, onError: () -> Unit) {
-        api.getMovieProviders(movieId = movieId)
+    fun getMovieProviders(type: String, movieId: Long, onSuccess: (providers: List<Provider>) -> Unit, onError: () -> Unit) {
+        api.getMovieProviders(type, movieId = movieId)
             .enqueue(object : Callback<GetMovieProvidersResponse> {
                 override fun onResponse(
                     call: Call<GetMovieProvidersResponse>,

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import com.example.whereott.common.Api
 import com.example.whereott.common.GetMoviesResponse
 import com.example.whereott.common.Movie
 import com.example.whereott.common.MoviesRepository
+import com.example.whereott.common.ProviderAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +32,9 @@ class MovieFragment : Fragment() {
     private var popularMoviesPage = 1
     // SearchView 및 RecyclerView 변수 추가
     private lateinit var movieSearchView: SearchView
+
+    private lateinit var providerAdapter: ProviderAdapter
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -62,6 +67,14 @@ class MovieFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 // 텍스트 변경 시에도 검색을 수행할 수 있도록 필요한 경우에 대비하여 onQueryTextSubmit을 호출
                 newText?.let { performSearch(it) }
+
+                // 입력된 텍스트가 없을 때는 '인기순' 텍스트를 moviePopular에 설정
+                if (newText.isNullOrEmpty()) {
+                    root.findViewById<TextView>(R.id.moviePopular).text = getString(R.string.popular)
+                } else {
+                    // 입력된 텍스트가 있을 때는 '검색결과' 텍스트를 moviePopular에 설정
+                    root.findViewById<TextView>(R.id.moviePopular).text = getString(R.string.search)
+                }
                 return false
             }
         })
@@ -133,6 +146,7 @@ class MovieFragment : Fragment() {
         intent.putExtra(MainActivity.MOVIE_RATING, movie.rating)
         intent.putExtra(MainActivity.MOVIE_RELEASE_DATE, movie.releaseDate)
         intent.putExtra(MainActivity.MOVIE_OVERVIEW, movie.overview)
+        intent.putExtra(MainActivity.TYPE, "movie")
         startActivity(intent)
     }
     // Retrofit 인터페이스 구현체 생성
@@ -178,4 +192,20 @@ class MovieFragment : Fragment() {
         popularMoviesAdapter.clear()
         popularMoviesAdapter.appendMovies(movies)
     }
+
+
+    private fun getMovieProviders(type:String , movieId: Long) {
+        if (movieId != -1L) {
+            val moviesRepository = MoviesRepository()
+            moviesRepository.getMovieProviders(type, movieId,
+                onSuccess = { providers ->
+                    providerAdapter.appendProviders(providers)
+                },
+                onError = {
+                    // 오류 처리
+                }
+            )
+        }
+    }
+
 }

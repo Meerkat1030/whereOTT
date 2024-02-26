@@ -11,5 +11,6 @@ data class TV(
     @SerializedName("vote_average") val rating: Float,
     @SerializedName("vote_count") val vcount: Long,
     @SerializedName("first_air_date") val first_air_date: String,
-    @SerializedName("popularity") val prating: Float
+    @SerializedName("popularity") val prating: Float,
+
 )

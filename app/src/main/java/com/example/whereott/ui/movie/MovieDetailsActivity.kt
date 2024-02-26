@@ -16,7 +16,7 @@ import com.example.whereott.MainActivity.Companion.MOVIE_POSTER
 import com.example.whereott.MainActivity.Companion.MOVIE_RATING
 import com.example.whereott.MainActivity.Companion.MOVIE_RELEASE_DATE
 import com.example.whereott.MainActivity.Companion.MOVIE_TITLE
-import com.example.whereott.MainActivity.Companion.TV_ID
+import com.example.whereott.MainActivity.Companion.TYPE
 import com.example.whereott.R
 import com.example.whereott.common.CastAdapter
 import com.example.whereott.common.MoviesRepository
@@ -39,6 +39,7 @@ class MovieDetailsActivity : AppCompatActivity() {
     private lateinit var providerAdapter: ProviderAdapter
     private var castPage = 1
     private var movieId: Long = -1L
+    private var type: String = ""
     private var tvId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,15 +78,16 @@ class MovieDetailsActivity : AppCompatActivity() {
 
         if (extras != null) {
             movieId = extras.getLong(MOVIE_ID)
+            type = extras.getString(TYPE).toString()
 
-            tvId = extras.getLong(TV_ID)
+
 
             // 출연진 정보 가져오기
-            getMovieCast(movieId)
+            getMovieCast(type, movieId)
 
             populateDetails(extras)
 
-            getMovieProviders(movieId)
+            getMovieProviders(type, movieId)
         } else {
             finish()
         }
@@ -115,12 +117,12 @@ class MovieDetailsActivity : AppCompatActivity() {
         overview.text = extras.getString(MOVIE_OVERVIEW, "")
     }
 
-    private fun getMovieCast(movieId: Long) {
+    private fun getMovieCast(type: String, movieId: Long) {
 //        val movieId = intent.getLongExtra(MOVIE_ID, -1) // 영화의 ID를 가져옵니다.
 
         if (movieId != -1L) {
             val moviesRepository = MoviesRepository()
-            moviesRepository.getMovieCast(movieId,
+            moviesRepository.getMovieCast(type, movieId,
                 onSuccess = { cast ->
                     castAdapter.appendCast(cast)
                 },
@@ -131,10 +133,10 @@ class MovieDetailsActivity : AppCompatActivity() {
         }
     }
 
-    private fun getMovieProviders(movieId: Long) {
+    private fun getMovieProviders(type:String, movieId: Long) {
         if (movieId != -1L) {
             val moviesRepository = MoviesRepository()
-            moviesRepository.getMovieProviders(movieId,
+            moviesRepository.getMovieProviders(type, movieId,
                 onSuccess = { providers ->
                     providerAdapter.appendProviders(providers)
                 },

@@ -22,15 +22,17 @@ interface Api {
         @Query("language") language : String = "ko-KR,en-US"
     ): Call<GetTVResponse>
 
-    @GET("movie/{movie_id}/credits")
+    @GET("{movie}/{movie_id}/credits")
     fun getMovieCredits(
+        @Path("movie") movie : String,
         @Path("movie_id") movieId: Long,
         @Query("api_key") apiKey: String = "beb95ad63fd33a8568136afbb01979a1",
         @Query("language") language : String = "ko,en-US"
     ): Call<GetMovieCreditsResponse>
 
-    @GET("movie/{movie_id}/watch/providers")
+    @GET("{movie}/{movie_id}/watch/providers")
     fun getMovieProviders(
+        @Path("movie") movie : String,
         @Path("movie_id") movieId: Long,
         @Query("api_key") apiKey: String = "beb95ad63fd33a8568136afbb01979a1",
         @Query("language") language : String = "ko,en-US"
