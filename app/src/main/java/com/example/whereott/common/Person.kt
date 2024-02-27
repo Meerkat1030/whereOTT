@@ -7,4 +7,5 @@ data class Person (
     @SerializedName("name") val name : String,
     @SerializedName("profile_path") val profilePath: String,
     @SerializedName("known_for_department") val Department: String,
+    @SerializedName("known_for") val knownFor: List<KnownFor>
 )

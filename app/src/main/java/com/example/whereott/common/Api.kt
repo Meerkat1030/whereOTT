@@ -17,7 +17,7 @@ interface Api {
     fun getPopularTV(
         @Query("api_key") apiKey: String = "beb95ad63fd33a8568136afbb01979a1",
         @Query("page") page : Int,
-        @Query("language") language : String = "ko-KR,en-US"
+        @Query("language") language : String = "ko-KR,en-US",
     ): Call<GetTVResponse>
 
     @GET("{movie}/{movie_id}/credits")
@@ -25,7 +25,7 @@ interface Api {
         @Path("movie") movie : String,
         @Path("movie_id") movieId: Long,
         @Query("api_key") apiKey: String = "beb95ad63fd33a8568136afbb01979a1",
-        @Query("language") language : String = "ko,en-US"
+        @Query("language") language : String = "ko-KR,en-US"
     ): Call<GetMovieCreditsResponse>
 
     @GET("{movie}/{movie_id}/watch/providers")
@@ -33,7 +33,7 @@ interface Api {
         @Path("movie") movie : String,
         @Path("movie_id") movieId: Long,
         @Query("api_key") apiKey: String = "beb95ad63fd33a8568136afbb01979a1",
-        @Query("language") language : String = "ko,en-US"
+        @Query("language") language : String = "ko-KR,en-US"
     ): Call<GetMovieProvidersResponse>
 
 

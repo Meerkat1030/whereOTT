@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.example.whereott.R
+import com.example.whereott.common.KnownFor
 import com.example.whereott.common.Person
 import com.example.whereott.common.TV
 
@@ -20,7 +21,7 @@ class PersonAdapter (var persons: MutableList<Person>, var onPersonClick: (perso
         private val poster: ImageView = itemView.findViewById(R.id.item_person_poster)
         private val personName: TextView = itemView.findViewById(R.id.item_person_name)
         private val departmentView: TextView = itemView.findViewById(R.id.item_DepartmentView)
-        private val birthdayView: TextView = itemView.findViewById(R.id.movie_watch_provider)
+        private val knownForView: TextView = itemView.findViewById(R.id.movie_watch_provider)
         private val starImageView: ImageView = itemView.findViewById(R.id.starImageView)
         private var isStarFilled = false
 

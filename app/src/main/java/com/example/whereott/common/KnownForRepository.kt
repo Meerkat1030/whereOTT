@@ -6,7 +6,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object PersonRepository {
+object KnownForRepository {
     private val api: Api //인터페이스 구현
 
     init {

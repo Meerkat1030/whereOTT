@@ -19,6 +19,7 @@ class TVAdapter (var tvlist: MutableList<TV>, var onTVClick: (tv: TV) -> Unit
         private val poster: ImageView = itemView.findViewById(R.id.item_tv_poster)
         private val titleTextView: TextView = itemView.findViewById(R.id.item_tv_title)
         private val firstAirDateView: TextView = itemView.findViewById(R.id.item_tv_date)
+        private val overviewView: TextView = itemView.findViewById(R.id.movie_watch_provider)
         private val tvstarImageView: ImageView = itemView.findViewById(R.id.tvstarImageView)
         private var isStarFilled = false
 
@@ -29,6 +30,7 @@ class TVAdapter (var tvlist: MutableList<TV>, var onTVClick: (tv: TV) -> Unit
                 .into(poster)
             titleTextView.text = tv.name
             firstAirDateView.text = tv.first_air_date
+            overviewView.text = tv.overview
 
             // 별 이미지 클릭 시 상태 변경
             tvstarImageView.setOnClickListener {

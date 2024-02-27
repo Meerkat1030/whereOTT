@@ -2,6 +2,7 @@ package com.example.whereott.ui.person
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -58,13 +59,13 @@ class PersonDetailsActivity : AppCompatActivity() {
         overview = findViewById(R.id.movie_overview)
 
         // 출연진 정보를 위한 RecyclerView 초기화
-        val castRecyclerView: RecyclerView = findViewById(R.id.cast_recycler_view)
-        val castLayoutManager = LinearLayoutManager(this).apply {
-            orientation = LinearLayoutManager.HORIZONTAL
-        }
-        castRecyclerView.layoutManager = castLayoutManager
-        castAdapter = CastAdapter(mutableListOf())
-        castRecyclerView.adapter = castAdapter
+//        val castRecyclerView: RecyclerView = findViewById(R.id.cast_recycler_view)
+//        val castLayoutManager = LinearLayoutManager(this).apply {
+//            orientation = LinearLayoutManager.HORIZONTAL
+//        }
+//        castRecyclerView.layoutManager = castLayoutManager
+//        castAdapter = CastAdapter(mutableListOf())
+//        castRecyclerView.adapter = castAdapter
 
         // Provider 정보를 위한 RecyclerView 초기화
         val providersRecyclerView: RecyclerView = findViewById(R.id.provider_recycler_view)
@@ -93,6 +94,15 @@ class PersonDetailsActivity : AppCompatActivity() {
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // 뒤로가기 버튼 클릭 시
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 
