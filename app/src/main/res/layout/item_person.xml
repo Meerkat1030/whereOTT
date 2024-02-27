@@ -17,6 +17,8 @@
             android:id="@+id/item_person_poster"
             android:layout_width="106.67dp"
             android:layout_height="160dp"
+            android:src="@drawable/person_basic"
+            android:scaleType="centerCrop"
             />
 
         <LinearLayout

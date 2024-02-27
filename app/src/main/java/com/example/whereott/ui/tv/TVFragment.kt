@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -60,6 +61,16 @@ class TVFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 // 텍스트 변경 시에도 검색을 수행할 수 있도록 필요한 경우에 대비하여 onQueryTextSubmit을 호출
                 newText?.let { performSearch(it) }
+
+                // 입력된 텍스트가 없을 때는 '인기순' 텍스트를 moviePopular에 설정
+                if (newText.isNullOrEmpty()) {
+                    reloadPopularTvList()
+                    root.findViewById<TextView>(R.id.tvPopular).text = getString(R.string.popular)
+                } else {
+                    // 입력된 텍스트가 있을 때는 '검색결과' 텍스트를 moviePopular에 설정
+                    root.findViewById<TextView>(R.id.tvPopular).text = getString(R.string.search)
+                }
+
                 return false
             }
         })
@@ -105,7 +116,8 @@ class TVFragment : Fragment() {
     private fun showTVDetails(tv: TV) {
 //        MovieDetailsActivity에 TV 요소 적용
         val intent = Intent(activity, MovieDetailsActivity::class.java)
-        intent.putExtra(MainActivity.TV_ID, tv.id)
+        intent.putExtra(MainActivity.MOVIE_ID, tv.id)
+        intent.putExtra(MainActivity.TYPE, "tv")
         intent.putExtra(MainActivity.MOVIE_BACKDROP, tv.backdrop_path)
         intent.putExtra(MainActivity.MOVIE_POSTER, tv.poster_path)
         intent.putExtra(MainActivity.MOVIE_TITLE, tv.name)
@@ -157,5 +169,13 @@ class TVFragment : Fragment() {
         // 검색된 영화 목록을 어댑터에 설정
         popularTVAdapter.clear()
         popularTVAdapter.appendTV(tv)
+    }
+
+    // 인기 영화 목록을 다시 로드하는 메서드
+    private fun reloadPopularTvList() {
+        // 이전 페이지의 영화 목록을 비우고 새로운 페이지를 가져오기 위해 어댑터의 clear() 메서드 호출
+        popularTVAdapter.clear()
+        popularTVPage = 1 // 페이지를 초기화
+        getPopularTV()
     }
 }

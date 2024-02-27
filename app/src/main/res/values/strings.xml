@@ -6,6 +6,7 @@
     <string name="title_person">배우</string>
 
     <string name="popular">인기순</string>
+    <string name="search">검색결과</string>
 
     <string name="drawer_opened">네비게이션 열림</string>
     <string name="drawer_closed">네비게이션 닫힘</string>
