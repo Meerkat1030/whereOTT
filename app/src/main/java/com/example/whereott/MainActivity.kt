@@ -32,10 +32,10 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-//    private lateinit var btnLogin: Button
+    //    private lateinit var btnLogin: Button
     private lateinit var editTextId: EditText
     private lateinit var editTextPassword: EditText
-//    private lateinit var btnRegister: Button
+    //    private lateinit var btnRegister: Button
     private lateinit var userRepository: UserRepository
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var imageViewProfile: ImageView
@@ -163,6 +163,8 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.logoutButton.setOnClickListener {
+            // 로그인 정보 클리어
+            sharedPreferences.edit().clear().apply()
             // 로그인 버튼을 클릭했을 때 로그인 레이아웃을 숨기고, 대신 마이페이지 레이아웃을 표시
             binding.loginLayout.visibility = View.VISIBLE
             binding.mypageLayout.visibility = View.GONE
@@ -207,7 +209,7 @@ class MainActivity : AppCompatActivity() {
         const val MOVIE_RELEASE_DATE = "extra_movie_release_date"
         const val MOVIE_OVERVIEW = "extra_movie_overview"
         const val MOVIE_ID = "extra_movie_id"
-//        const val TV_ID = "extra_tv_id"
+        //        const val TV_ID = "extra_tv_id"
         const val TYPE = "extra_type"
 
 

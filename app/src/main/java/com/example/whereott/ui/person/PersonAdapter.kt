@@ -19,7 +19,8 @@ class PersonAdapter (var persons: MutableList<Person>, var onPersonClick: (perso
     inner class PersonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val poster: ImageView = itemView.findViewById(R.id.item_person_poster)
         private val personName: TextView = itemView.findViewById(R.id.item_person_name)
-        private val birthday: TextView = itemView.findViewById(R.id.item_birthday)
+        private val departmentView: TextView = itemView.findViewById(R.id.item_DepartmentView)
+        private val birthdayView: TextView = itemView.findViewById(R.id.movie_watch_provider)
         private val starImageView: ImageView = itemView.findViewById(R.id.starImageView)
         private var isStarFilled = false
 
@@ -29,7 +30,7 @@ class PersonAdapter (var persons: MutableList<Person>, var onPersonClick: (perso
                 .transform(CenterCrop())
                 .into(poster)
             personName.text = person.name
-            birthday.text = person.birthday
+            departmentView.text = person.Department
 
             // 별 이미지 클릭 시 상태 변경
             starImageView.setOnClickListener {

@@ -57,11 +57,43 @@
 
 
             <TextView
-                android:id="@+id/item_birthday"
+                android:id="@+id/item_DepartmentView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="release_date"
                 android:textSize="15dp"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/black"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="5dp"
+                    android:src="@drawable/line"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/movie_watch_provider"
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="true"
+                android:text="fdkslaklfdjlfajl"
                 />
 
 

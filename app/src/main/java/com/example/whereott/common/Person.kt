@@ -6,6 +6,5 @@ data class Person (
     @SerializedName("id") val id : Long,
     @SerializedName("name") val name : String,
     @SerializedName("profile_path") val profilePath: String,
-    @SerializedName("birthday") val birthday: String?
-
+    @SerializedName("known_for_department") val Department: String,
 )

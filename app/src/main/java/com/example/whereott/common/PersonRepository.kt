@@ -1,6 +1,5 @@
 package com.example.whereott.common
 
-import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,5 +45,33 @@ object PersonRepository {
                 }
             })
     }
+
+//    fun getPersonDetail(personId:Long, onSuccess: (personDetail: List<PersonDetail>) -> Unit, onError: () -> Unit){
+//        api.getPersonDetail(personId = personId)
+//            .enqueue(object : Callback<GetPersonDetailResponse> {
+//                override fun onResponse(
+//                    call: Call<GetPersonDetailResponse>,
+//                    response: Response<GetPersonDetailResponse>
+//                ) {
+//                    if (response.isSuccessful) {
+//                        val responseBody = response.body()
+//
+//                        if (responseBody != null) {
+//                            onSuccess.invoke(responseBody.personDetail)
+//                        } else {
+//                            onError.invoke()
+//                        }
+//                    } else {
+//                        onError.invoke()
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<GetPersonDetailResponse>, t: Throwable) {
+//                    onError.invoke()
+//                }
+//            })
+//    }
+
+
 }
 

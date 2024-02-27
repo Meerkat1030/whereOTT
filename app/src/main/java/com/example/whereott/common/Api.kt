@@ -1,7 +1,5 @@
 package com.example.whereott.common
 
-import com.example.whereott.common.GetMoviesResponse
-import com.example.whereott.common.GetTVResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -45,6 +43,13 @@ interface Api {
         @Query("page") page : Int,
         @Query("language") language : String = "ko-KR,en-US"
     ): Call<GetPersonResponse>
+
+    @GET("person/{person_id}")
+    fun getPersonDetail(
+        @Path("person_id") personId: Long,
+        @Query("api_key") apiKey: String = "beb95ad63fd33a8568136afbb01979a1",
+        @Query("language") language: String = "ko-KR,en-US"
+    ): Call<GetPersonDetailResponse>
 
 
     @GET("search/movie")

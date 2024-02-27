@@ -85,7 +85,7 @@
 
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <TextView
                 android:id="@+id/movie_watch_provider"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
