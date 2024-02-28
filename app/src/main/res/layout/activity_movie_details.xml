@@ -39,6 +39,7 @@
             android:id="@+id/movie_backdrop"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:background="#6094C5"
             android:tint="#806F6F6F"
             app:layout_constraintTop_toBottomOf="@+id/movie_detail_title" />
 

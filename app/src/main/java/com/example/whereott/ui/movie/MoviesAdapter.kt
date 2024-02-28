@@ -20,6 +20,7 @@ class MoviesAdapter (var movies: MutableList<Movie>, var onMovieClick: (movie: M
         private val titleTextView: TextView = itemView.findViewById(R.id.item_movie_title)
         private val releaseDateTextView: TextView = itemView.findViewById(R.id.item_movie_releaseDate)
         private val moviestarImageView: ImageView = itemView.findViewById(R.id.moviestarImageView)
+        private val overviewView: TextView = itemView.findViewById(R.id.movie_watch_provider)
         private var isStarFilled = false
 
         fun bind(movie: Movie) {
@@ -29,6 +30,7 @@ class MoviesAdapter (var movies: MutableList<Movie>, var onMovieClick: (movie: M
                 .into(poster)
             titleTextView.text = movie.title
             releaseDateTextView.text = movie.releaseDate
+            overviewView.text = movie.overview
 
             // 별 이미지 클릭 시 상태 변경
             moviestarImageView.setOnClickListener {

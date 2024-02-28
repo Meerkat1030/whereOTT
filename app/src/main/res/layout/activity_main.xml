@@ -22,7 +22,7 @@
             android:background="@drawable/gradient_actionbar"
             app:titleTextColor="@color/white"
             app:layout_constraintTop_toTopOf="parent"
-        />
+            />
 
         <fragment
             android:id="@+id/nav_host_fragment_activity_main"
@@ -51,7 +51,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--    측면에서 나오는 레이아웃-->
+    <!--    측면에서 나오는 레이아웃-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -101,7 +101,7 @@
                     android:id="@+id/editTextId"
                     android:layout_width="200dp"
                     android:layout_height="40dp"
-                    android:hint="editId_hint"
+                    android:hint="@string/editId_hint"
                     android:background="@color/white"
                     android:gravity="center"
                     />
@@ -143,22 +143,22 @@
                 android:gravity="center"
                 android:layout_marginTop="100dp"
                 >
-<!--                <TextView-->
-<!--                    android:id="@+id/passwordFind"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="비번찾기"-->
-<!--                    android:textColor="@color/white"-->
-<!--                    android:textSize="20dp"-->
-<!--                    />-->
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:text="|"-->
-<!--                    android:layout_marginHorizontal="10dp"-->
-<!--                    android:textColor="#36FFFFFF"-->
-<!--                    android:textSize="20dp"-->
-<!--                    />-->
+                <!--                <TextView-->
+                <!--                    android:id="@+id/passwordFind"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="비번찾기"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:textSize="20dp"-->
+                <!--                    />-->
+                <!--                <TextView-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="|"-->
+                <!--                    android:layout_marginHorizontal="10dp"-->
+                <!--                    android:textColor="#36FFFFFF"-->
+                <!--                    android:textSize="20dp"-->
+                <!--                    />-->
                 <Button
                     android:id="@+id/btnRegister"
                     android:layout_width="200dp"
@@ -167,13 +167,13 @@
                     android:textSize="20dp"
                     android:textColor="@color/white"
                     android:background="@drawable/corner_button"
-                     android:backgroundTint="#CF4747"
+                    android:backgroundTint="#CF4747"
                     />
             </LinearLayout>
         </LinearLayout>
 
 
-    <!--    프로필 화면-->
+        <!--    프로필 화면-->
         <LinearLayout
             android:id="@+id/mypage_layout"
             android:visibility="gone"
@@ -210,17 +210,17 @@
             </androidx.cardview.widget.CardView>
 
 
-<!--            <Button-->
-<!--                android:id="@+id/profileImageButton"-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                android:text="사진선택"-->
-<!--                android:textSize="20dp"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:layout_marginTop="10dp"-->
-<!--                android:background="@drawable/corner_button"-->
-<!--                android:backgroundTint="#7A33B6"-->
-<!--                />-->
+            <!--            <Button-->
+            <!--                android:id="@+id/profileImageButton"-->
+            <!--                android:layout_width="100dp"-->
+            <!--                android:layout_height="40dp"-->
+            <!--                android:text="사진선택"-->
+            <!--                android:textSize="20dp"-->
+            <!--                android:textColor="@color/white"-->
+            <!--                android:layout_marginTop="10dp"-->
+            <!--                android:background="@drawable/corner_button"-->
+            <!--                android:backgroundTint="#7A33B6"-->
+            <!--                />-->
 
 
             <LinearLayout
@@ -316,4 +316,3 @@
     </LinearLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>
-

@@ -32,10 +32,10 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-//    private lateinit var btnLogin: Button
+    //    private lateinit var btnLogin: Button
     private lateinit var editTextId: EditText
     private lateinit var editTextPassword: EditText
-//    private lateinit var btnRegister: Button
+    //    private lateinit var btnRegister: Button
     private lateinit var userRepository: UserRepository
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var imageViewProfile: ImageView
@@ -209,7 +209,7 @@ class MainActivity : AppCompatActivity() {
         const val MOVIE_RELEASE_DATE = "extra_movie_release_date"
         const val MOVIE_OVERVIEW = "extra_movie_overview"
         const val MOVIE_ID = "extra_movie_id"
-//        const val TV_ID = "extra_tv_id"
+        //        const val TV_ID = "extra_tv_id"
         const val TYPE = "extra_type"
 
 

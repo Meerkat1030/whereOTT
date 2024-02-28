@@ -1,4 +1,3 @@
-// UsereditActivity.kt
 package com.example.whereott.ui.user
 
 import android.annotation.SuppressLint
