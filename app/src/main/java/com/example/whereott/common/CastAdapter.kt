@@ -1,5 +1,7 @@
 package com.example.whereott.common
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +13,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.whereott.R
 
-class CastAdapter(val castList: MutableList<Cast>) : RecyclerView.Adapter<CastAdapter.CastViewHolder>() {
+class CastAdapter(private val castList: MutableList<Cast>) : RecyclerView.Adapter<CastAdapter.CastViewHolder>() {
 
     inner class CastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.cast_name)
@@ -40,7 +42,9 @@ class CastAdapter(val castList: MutableList<Cast>) : RecyclerView.Adapter<CastAd
 
     override fun getItemCount(): Int = castList.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun appendCast(cast: List<Cast>) {
+        Log.d("배우 디테일 진입", "1")
         castList.addAll(cast)
         notifyDataSetChanged()
     }
